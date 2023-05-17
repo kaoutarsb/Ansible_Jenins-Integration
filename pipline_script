@@ -1,0 +1,13 @@
+// This script is to run ansible playbooks in Jenkins
+// The script is written in Groovy language used for defining Jenkins pipelines. 
+
+
+pipeline{
+   // agent : is a directive in Jenkins pipelines refers to the Jenkins agent or executor on which the pipeline stages and steps are executed
+   agent any
+   stages{
+      stage('Execute Ansible Playbooks')
+      
+   }
+
+}
