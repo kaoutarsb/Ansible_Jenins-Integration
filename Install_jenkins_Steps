@@ -1,0 +1,48 @@
+---To do an offline installation -------------
+//////////////////////////////////////////////
+
+
+Réf d'info:
+
+https://mohitgoyal.co/2019/02/16/install-jenkins-in-offline-mode-on-centos-rhel/
+
+----------------------------------------
+1.Check first if java is installed :
+  java -version
+2.If it's not installed use: 
+   sudo yum install java-1.8.0-openjdk.x86_64 -y 
+3.In order to help jenkins to locate the JVM properly,we need to set
+  two env variables:
+  export JAVA_HOME=/usr/lib/jvm/jre-1.8.0-openjdk
+  export JRE_HOME=/usr/lib/jvm/java-8-openjdk-amd64/jre
+
+4.Execute these cmds:
+  sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat/jenkins.repo
+  sudo rpm --import https://pkg.jenkins.io/redhat/jenkins.io-2023.key
+  
+  //These two cmds not sure if we're going to run them 
+  
+5.After this you can install the rpm using:
+   sudo rpm jenkins-2.387.3-1.1.noarch.rpm
+
+6.Now Jenkins will be installed in /var/lib/jenkins folder
+   "ls /usr/lib/jenkins"
+  
+  NB: /usr/lib/jenkins will be empty at this time
+
+7.Enable Jenkins Service:
+  sudo systemctl enable jenkins.service
+8.Start & check the jenkins status:
+    sudo systemctl start jenkins.service
+    sudo systemctl status jenkins.service
+9.Configure firewall to allow jenkins connections:
+  sudo firewall-cmd --zone=public --add-port=8080/tcp --permanent
+  sudo firewall-cmd --zone=public --add-service=http --permanent
+  sudo firewall-cmd --reload
+10.Access Jenkins web portal using the browser 
+   "http://<server_ip>:8080 
+
+_______________________________________________________________
+
+Install Ansible plugin in offline mode:
+ https://updates.jenkins-ci.org/download/plugins/ansible/205.v4cb_c48657c21/ansible.hpi
